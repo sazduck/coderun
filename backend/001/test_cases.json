@@ -1,0 +1,13 @@
+[
+  {
+    "name": "example 0",
+    "input": "She sells sea shells on the sea shore;\nThe shells that she sells are sea shells I'm sure.\nSo if she sells sea shells on the sea shore,\nI'm sure that the shells are sea shore shells.",
+    "expected": "19"
+  },
+  { "name": "example 1", "input": "AA aa Aa aA", "expected": "4" },
+  {
+    "name": "example 2",
+    "input": "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a",
+    "expected": "1"
+  }
+]
