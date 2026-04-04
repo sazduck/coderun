@@ -1,0 +1,7 @@
+[
+  {
+    "name": "example 0",
+    "input": "7 3\n1 3 2 4 5 3 1\n",
+    "expected": "1\n2\n2\n3\n1\n"
+  }
+]

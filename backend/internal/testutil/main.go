@@ -8,13 +8,15 @@ import (
 	"testing"
 )
 
-// JSON.stringify(
-//   [...document.querySelectorAll('.io-sample>div')].map((d, i) => ({
-//     name: `example ${i}`,
-//     input: d.querySelector('.input-snippet code').innerText.trim(),
-//     expected: d.querySelector('.output-snippet code').innerText.trim(),
-//   }))
-// );
+/*
+JSON.stringify(
+  [...document.querySelectorAll('.io-sample>div')].map((d, i) => ({
+    name: `example ${i}`,
+    input: d.querySelector('.input-snippet code').innerText,
+    expected: d.querySelector('.output-snippet code').innerText,
+  }))
+);
+*/
 
 type TestCase struct {
 	Name     string `json:"name"`
@@ -22,13 +24,22 @@ type TestCase struct {
 	Expected string `json:"expected"`
 }
 
-func RunTests(t *testing.T, tc []TestCase, f func(io.Reader) string) {
+func RunTests(t *testing.T, tc []TestCase, f func(r io.Reader, w io.Writer) error) {
 	for _, tt := range tc {
 		t.Run(tt.Name, func(t *testing.T) {
 			r := strings.NewReader(tt.Input)
-			res := f(r)
-			if res != tt.Expected {
-				t.Errorf("Ввод: %s, ожидалось: %s, получено: %s", tt.Input, tt.Expected, res)
+
+			var sb strings.Builder
+
+			if err := f(r, &sb); err != nil {
+				t.Fatal(err)
+			}
+
+			got := sb.String()
+			want := tt.Expected
+
+			if got != want {
+				t.Errorf("Ввод: %s\nОжидалось: %s\nПолучено: %s", tt.Input, want, got)
 			}
 		})
 	}
@@ -47,7 +58,7 @@ func LoadTestCases(t *testing.T, path string) []TestCase {
 	return tests
 }
 
-func RunWithDefaultTestCasesPath(t *testing.T, f func(io.Reader) string) {
+func RunWithDefaultTestCasesPath(t *testing.T, f func(r io.Reader, w io.Writer) error) {
 	const defaultPath = "./test_cases.json"
 	tests := LoadTestCases(t, defaultPath)
 	RunTests(t, tests, f)

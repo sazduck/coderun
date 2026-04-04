@@ -1,4 +1,4 @@
-package main
+package task001
 
 import (
 	"bufio"
@@ -8,12 +8,17 @@ import (
 )
 
 func main() {
-	count := CountUniqueWords(os.Stdin)
+	Run(os.Stdin, os.Stdout)
+}
 
-	w := bufio.NewWriterSize(os.Stdout, 1<<20)
-	defer w.Flush()
-	w.WriteString(strconv.Itoa(count))
-	w.WriteByte('\n')
+func Run(r io.Reader, w io.Writer) error {
+	count := CountUniqueWords(r)
+
+	buf := bufio.NewWriterSize(w, 1<<20)
+	defer buf.Flush()
+	buf.WriteString(strconv.Itoa(count))
+	buf.WriteByte('\n')
+	return nil
 }
 
 // CountUniqueWords принимает [io.Reader], который преобрузается в [bufio.Scanner],

@@ -1,4 +1,4 @@
-package main
+package task002
 
 import (
 	"bufio"
@@ -13,16 +13,20 @@ import (
 // Далее следует N строк, каждая строка содержит ровно два слова-синонима.
 // После этого следует одно слово.
 func main() {
+	Run(os.Stdin, os.Stdout)
+}
 
-	ans, err := PickSynonym(os.Stdin)
+func Run(r io.Reader, w io.Writer) error {
+	ans, err := PickSynonym(r)
 	if err != nil {
-		return
+		return err
 	}
 
-	w := bufio.NewWriterSize(os.Stdout, 1<<20)
-	defer w.Flush()
-	w.WriteString(ans)
-	w.WriteByte('\n')
+	buf := bufio.NewWriterSize(w, 1<<20)
+	defer buf.Flush()
+	buf.WriteString(ans)
+	buf.WriteByte('\n')
+	return nil
 }
 
 func PickSynonym(r io.Reader) (string, error) {
