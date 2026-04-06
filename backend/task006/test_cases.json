@@ -1,0 +1,12 @@
+[
+  {
+    "name": "example 0",
+    "input": "3\n1\n1\n1\n",
+    "expected": "2\n"
+  },
+  {
+    "name": "example 1",
+    "input": "2\n3\n4\n",
+    "expected": "3\n"
+  }
+]

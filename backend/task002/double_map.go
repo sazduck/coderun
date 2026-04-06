@@ -1,4 +1,4 @@
-package task002
+package main
 
 import (
 	"bufio"

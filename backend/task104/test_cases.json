@@ -1,0 +1,17 @@
+[
+  {
+    "name": "example 0",
+    "input": "hello \"a\"bbbbbbbbb\"c\" world",
+    "expected": "1 11\n8 19\n"
+  },
+  {
+    "name": "example 1",
+    "input": "data: {\"key\": \"value\"} and [1, 2, 3]",
+    "expected": "2 25\n27 36\n6 22\n"
+  },
+  {
+    "name": "example 2",
+    "input": "no json {} {\"x\": 1} ??? {\"y\": [2, 3]} end",
+    "expected": "3 23\n24 37\n11 19\n8 10\n"
+  }
+]

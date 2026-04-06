@@ -1,0 +1,17 @@
+[
+  {
+    "name": "example 0",
+    "input": "()[]\n",
+    "expected": "yes\n"
+  },
+  {
+    "name": "example 1",
+    "input": "([)]\n",
+    "expected": "no\n"
+  },
+  {
+    "name": "example 2",
+    "input": "(\n",
+    "expected": "no\n"
+  }
+]

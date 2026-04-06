@@ -1,4 +1,4 @@
-package task003
+package main
 
 import (
 	"bufio"
@@ -28,41 +28,31 @@ func Run(r io.Reader, w io.Writer) error {
 
 func FindMinimum(r io.Reader) ([]int, error) {
 
-	seqSize, winSize, seq, err := parseInput(r)
-	if err != nil {
-		return nil, err
-	}
+	seqSize, winSize, seq := parseInput(r)
 	result := minByWindow(seq, seqSize, winSize)
 
 	return result, nil
 
 }
 
-func parseInput(r io.Reader) (int, int, []int, error) {
+func parseInput(r io.Reader) (int, int, []int) {
 	s := bufio.NewScanner(r)
 	s.Split(bufio.ScanWords)
-	s.Scan()
-	seqSize, err := strconv.Atoi(s.Text())
-	if err != nil {
-		return 0, 0, nil, err
+
+	next := func() int {
+		s.Scan()
+		val, _ := strconv.Atoi(s.Text())
+		return val
 	}
 
-	s.Scan()
-	winSize, err := strconv.Atoi(s.Text())
-	if err != nil {
-		return 0, 0, nil, err
-	}
+	seqSize := next()
+	winSize := next()
 
-	seq := make([]int, 0, seqSize)
-	for s.Scan() {
-		if n, err := strconv.Atoi(s.Text()); err == nil {
-			seq = append(seq, n)
-		} else {
-			return 0, 0, nil, err
-		}
-
+	seq := make([]int, seqSize)
+	for i := range seqSize {
+		seq[i] = next()
 	}
-	return seqSize, winSize, seq, err
+	return seqSize, winSize, seq
 
 }
 

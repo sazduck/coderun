@@ -1,8 +1,8 @@
-package task002_test
+package main_test
 
 import (
 	"backend/internal/testutil"
-	"backend/task002"
+	task002 "backend/task002"
 
 	"testing"
 )

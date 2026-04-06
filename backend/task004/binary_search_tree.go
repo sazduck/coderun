@@ -1,4 +1,4 @@
-package task004
+package main
 
 import (
 	"bufio"
@@ -52,10 +52,12 @@ func NewBST(r io.Reader) *BST {
 func (t *BST) Insert(val int) {
 	if t.Root == nil {
 		t.Root = &Node{Val: val}
-		return
 	}
+	t.Root.Insert(val)
+}
 
-	curr := t.Root
+func (n *Node) Insert(val int) {
+	curr := n
 	for {
 		switch {
 		case val < curr.Val:
