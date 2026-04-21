@@ -13,7 +13,6 @@ func main() {
 
 func Run(r io.Reader, w io.Writer) error {
 	s := bufio.NewScanner(r)
-
 	next := func() int {
 		s.Scan()
 		val, _ := strconv.Atoi(s.Text())

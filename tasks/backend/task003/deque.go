@@ -65,7 +65,7 @@ func minByWindow(seq []int, seqSize, winSize int) []int {
 	res := make([]int, 0, resCount)
 	deque := make([]int, 0, winSize) // Храним индексы
 
-	for i := 0; i < seqSize; i++ {
+	for i := range seqSize {
 		leftBoundary := i - winSize
 
 		if len(deque) > 0 && deque[0] <= leftBoundary {
