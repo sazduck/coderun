@@ -1,0 +1,12 @@
+[
+  {
+    "name": "example 0",
+    "input": "3 2\n",
+    "expected": "1\n"
+  },
+  {
+    "name": "example 1",
+    "input": "31 34\n",
+    "expected": "293930\n"
+  }
+]
