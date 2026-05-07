@@ -15,17 +15,17 @@ func TestRun(t *testing.T) {
 		output string
 	}{}
 	for _, tt := range tests {
-		r := strings.NewReader(tt.input)
-		var w bytes.Buffer
-
 		t.Run(tt.name, func(t *testing.T) {
+			r := strings.NewReader(tt.input)
+			var w bytes.Buffer
+
 			task010.Run(r, &w)
 
 			got := strings.TrimSpace(w.String())
 			want := strings.TrimSpace(tt.output)
 
 			if got != want {
-				t.Error()
+				t.Errorf("\ngot: %q\nwant: %q", got, want)
 			}
 		})
 	}

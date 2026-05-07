@@ -18,6 +18,7 @@ func Run(r io.Reader, w io.Writer) error {
 	defer buf.Flush()
 
 	h := tree.Height()
+
 	buf.WriteString(strconv.Itoa(h))
 	buf.WriteByte('\n')
 	return nil
@@ -57,21 +58,20 @@ func (t *BST) Insert(val int) {
 }
 
 func (n *Node) Insert(val int) {
-	curr := n
 	for {
 		switch {
-		case val < curr.Val:
-			if curr.Left == nil {
-				curr.Left = &Node{Val: val}
+		case val < n.Val:
+			if n.Left == nil {
+				n.Left = &Node{Val: val}
 				return
 			}
-			curr = curr.Left
-		case val > curr.Val:
-			if curr.Right == nil {
-				curr.Right = &Node{Val: val}
+			n = n.Left
+		case val > n.Val:
+			if n.Right == nil {
+				n.Right = &Node{Val: val}
 				return
 			}
-			curr = curr.Right
+			n = n.Right
 		default:
 			return
 		}

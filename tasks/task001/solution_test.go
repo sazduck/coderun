@@ -41,7 +41,7 @@ func TestRun(t *testing.T) {
 			got := strings.TrimSpace(w.String())
 			want := strings.TrimSpace(tt.output)
 			if got != want {
-				t.Error()
+				t.Errorf("\ngot: %q\nwant: %q", got, want)
 			}
 		})
 	}

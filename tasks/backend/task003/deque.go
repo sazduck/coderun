@@ -28,14 +28,14 @@ func Run(r io.Reader, w io.Writer) error {
 
 func FindMinimum(r io.Reader) ([]int, error) {
 
-	seqSize, winSize, seq := parseInput(r)
-	result := minByWindow(seq, seqSize, winSize)
+	winSize, seq := parseInput(r)
+	result := minByWindow(seq, winSize)
 
 	return result, nil
 
 }
 
-func parseInput(r io.Reader) (int, int, []int) {
+func parseInput(r io.Reader) (int, []int) {
 	s := bufio.NewScanner(r)
 	s.Split(bufio.ScanWords)
 
@@ -52,20 +52,21 @@ func parseInput(r io.Reader) (int, int, []int) {
 	for i := range seqSize {
 		seq[i] = next()
 	}
-	return seqSize, winSize, seq
+	return winSize, seq
 
 }
 
-func minByWindow(seq []int, seqSize, winSize int) []int {
-	if seqSize == 0 || winSize <= 0 {
+func minByWindow(seq []int, winSize int) []int {
+
+	if len(seq) == 0 || winSize <= 0 {
 		return nil
 	}
 
-	resCount := seqSize - winSize + 1
+	resCount := len(seq) - winSize + 1
 	res := make([]int, 0, resCount)
 	deque := make([]int, 0, winSize) // Храним индексы
 
-	for i := range seqSize {
+	for i, num := range seq {
 		leftBoundary := i - winSize
 
 		if len(deque) > 0 && deque[0] <= leftBoundary {
@@ -74,7 +75,7 @@ func minByWindow(seq []int, seqSize, winSize int) []int {
 
 		for len(deque) > 0 {
 			lastIndex := deque[len(deque)-1]
-			if seq[lastIndex] < seq[i] {
+			if seq[lastIndex] < num {
 				break
 			}
 			deque = deque[:len(deque)-1]
