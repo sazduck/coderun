@@ -1,18 +1,37 @@
 package main_test
 
 import (
+	"bytes"
+	"strings"
 	"testing"
 
-	"github.com/sazduck/algo-practice-util/testutil"
 	task002 "github.com/sazduck/coderun/tasks/task002"
 )
 
 func TestRun(t *testing.T) {
-	testutil.Run(t, []testutil.TestCase{
+	tests := []struct {
+		name   string
+		input  string
+		output string
+	}{
 		{
-			Name:     "example 0",
-			Input:    "5 5\n1 1 1 1 1\n3 100 100 100 100\n1 1 1 1 1\n2 2 2 2 1\n1 1 1 1 1\n",
-			Expected: "11\n",
+			name:   "example 0",
+			input:  "5 5\n1 1 1 1 1\n3 100 100 100 100\n1 1 1 1 1\n2 2 2 2 1\n1 1 1 1 1\n",
+			output: "11\n",
 		},
-	}, task002.Run)
+	}
+	for _, tt := range tests {
+		r := strings.NewReader(tt.input)
+		var w bytes.Buffer
+
+		t.Run(tt.name, func(t *testing.T) {
+			task002.Run(r, &w)
+
+			got := strings.TrimSpace(w.String())
+			want := strings.TrimSpace(tt.output)
+			if got != want {
+				t.Error()
+			}
+		})
+	}
 }
